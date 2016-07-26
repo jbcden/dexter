@@ -6,4 +6,10 @@ defmodule RequestTest do
 
     assert bulbasaur["name"] == "bulbasaur"
   end
+
+  test "handles 404 response" do
+    {:error, message} = Dexter.Request.make("pokemon/banana")
+
+    assert message == "Not found"
+  end
 end

@@ -18,6 +18,8 @@ defmodule Dexter.Request do
   end
 
   defp handle_response({:ok, %{status_code: 200, body: body}}), do: {:ok, Parser.parse!(body)}
+  defp handle_response({:ok, %{status_code: 404}}), do: {:error, "Not found"}
 
   defp handle_body({:ok, body}), do: {:ok, body}
+  defp handle_body({:error, message}), do: {:error, message}
 end
