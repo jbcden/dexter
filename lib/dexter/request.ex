@@ -12,7 +12,7 @@ defmodule Dexter.Request do
   """
   def make(query) do
     @url <> query
-    |> HTTPoison.get([], [follow_redirect: true, timeout: 1000000])
+    |> HTTPoison.get([], [follow_redirect: true, recv_timeout: 1000000, timeout: 1000000])
     |> handle_response
     |> handle_body
   end
