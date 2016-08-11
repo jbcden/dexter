@@ -1,4 +1,4 @@
-defmodule BerryTest do
+defmodule MachineTest do
   use ExUnit.Case
 
   test "gets machine by id or name" do
