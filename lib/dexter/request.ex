@@ -1,6 +1,6 @@
 defmodule Dexter.Request do
   @moduledoc """
-  Takes care of making and handling query requests
+  Takes care of making, caching, and handling query requests
   """
 
   alias Poison.Parser
@@ -11,10 +11,24 @@ defmodule Dexter.Request do
   Makes a request using the given query
   """
   def make(query) do
-    @url <> query
+    case Dexter.Cache.get(query) do
+      nil -> get(query)
+      # If in cache, return that
+      response -> response
+    end
+  end
+
+  defp get(query) do
+    # Make the request
+    response = @url <> query
     |> HTTPoison.get([], [follow_redirect: true, recv_timeout: 1000000, timeout: 1000000])
     |> handle_response
     |> handle_body
+
+    # Put response in cache
+    Dexter.Cache.put(query, response)
+
+    response
   end
 
   defp handle_response({:ok, %{status_code: 200, body: body}}), do: {:ok, Parser.parse!(body)}
