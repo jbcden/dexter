@@ -19,16 +19,28 @@ defmodule Dexter.Request do
   end
 
   defp get(query) do
-    # Make the request
-    response = @url <> query
-    |> HTTPoison.get([], [follow_redirect: true, recv_timeout: 1000000, timeout: 1000000])
-    |> handle_response
-    |> handle_body
+    full_query = make_url(query)
+
+    response =
+      full_query
+      # Make the request
+      |> HTTPoison.get([], [follow_redirect: true, recv_timeout: 1000000, timeout: 1000000])
+      |> handle_response
+      |> handle_body
 
     # Put response in cache
     Dexter.Cache.put(query, response)
 
     response
+  end
+
+  defp make_url(query) do
+    case String.contains?(query, "pokeapi.co/api/v2/") do
+      true ->
+        query
+      false ->
+        @url <> query
+    end
   end
 
   defp handle_response({:ok, %{status_code: 200, body: body}}), do: {:ok, Parser.parse!(body)}
