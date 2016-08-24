@@ -3,6 +3,7 @@ defmodule Dexter.Request do
   Takes care of making, caching, and handling query requests
   """
 
+  alias Dexter.Cache
   alias Poison.Parser
 
   @url "http://pokeapi.co/api/v2/"
@@ -11,7 +12,7 @@ defmodule Dexter.Request do
   Makes a request using the given query
   """
   def make(query) do
-    case Dexter.Cache.get(query) do
+    case Cache.get(query) do
       nil -> get(query)
       # If in cache, return that
       response -> response
@@ -29,7 +30,7 @@ defmodule Dexter.Request do
       |> handle_body
 
     # Put response in cache
-    Dexter.Cache.put(query, response)
+    Cache.put(query, response)
 
     response
   end
