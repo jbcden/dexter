@@ -27,7 +27,8 @@ defmodule Dexter.Game do
   end
 
   @doc """
-  Gets game version groups (groups of highly similar versions of the games) by id or name
+  Gets game version groups (groups of highly similar versions of the games)
+  by id or name
   """
   def version_group(id) do
     Request.make("version-group/#{id}")
