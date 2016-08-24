@@ -1,4 +1,9 @@
 defmodule Dexter do
+  @moduledoc """
+  Main module
+
+  Links the cache with the rest of the application
+  """
   use Application
 
   alias Dexter.Cache
