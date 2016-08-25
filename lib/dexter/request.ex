@@ -10,6 +10,9 @@ defmodule Dexter.Request do
 
   @doc """
   Makes a request using the given query
+
+  `query` can be a full URL (`http://pokeapi.co/api/v2/pokemon/1`) or just the
+  endpoint (`pokemon/1`)
   """
   def make(query) do
     case Cache.get(query) do
