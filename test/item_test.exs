@@ -1,5 +1,5 @@
 defmodule ItemTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   test "gets item by id" do
     {:ok, master_ball} = Dexter.Item.get(1)

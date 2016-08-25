@@ -1,5 +1,5 @@
 defmodule MachineTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   test "gets machine by id or name" do
     {:ok, mega_punch} = Dexter.Machine.get(1)

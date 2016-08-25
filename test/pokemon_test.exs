@@ -1,5 +1,5 @@
 defmodule PokemonTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   test "gets Pokémon ability by id" do
     {:ok, effect} = Dexter.Pokemon.ability(1)

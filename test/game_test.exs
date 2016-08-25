@@ -1,5 +1,5 @@
 defmodule GameTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   test "gets generation by id or name" do
     {:ok, gen_one} = Dexter.Game.generation(1)

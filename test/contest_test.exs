@@ -1,5 +1,5 @@
 defmodule ContestTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   test "gets contest type by id" do
     {:ok, cool} = Dexter.Contest.type(1)

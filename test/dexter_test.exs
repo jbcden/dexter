@@ -1,5 +1,5 @@
 defmodule DexterTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   doctest Dexter
 
   test "the truth" do

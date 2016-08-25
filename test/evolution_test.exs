@@ -1,5 +1,5 @@
 defmodule EvolutionTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   test "gets evolution chain by id" do
     {:ok, bulbasaur_chain} = Dexter.Evolution.chain(1)

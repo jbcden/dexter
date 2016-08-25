@@ -1,5 +1,5 @@
 defmodule MoveTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   test "gets move by id or name" do
     {:ok, pound} = Dexter.Move.get(1)

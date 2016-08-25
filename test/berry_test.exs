@@ -1,5 +1,5 @@
 defmodule BerryTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   test "gets berry by id or name" do
     {:ok, cheri} = Dexter.Berry.get(1)

@@ -1,5 +1,5 @@
 defmodule EncounterTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   test "gets encounter method by id" do
     {:ok, walk} = Dexter.Encounter.method(1)

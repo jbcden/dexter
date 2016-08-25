@@ -1,5 +1,5 @@
 defmodule LocationTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   test "gets location by id or name" do
     {:ok, canalave} = Dexter.Location.get(1)

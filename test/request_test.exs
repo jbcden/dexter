@@ -1,5 +1,5 @@
 defmodule RequestTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   test "handles a successful response" do
     {:ok, bulbasaur} = Dexter.Request.make("pokemon/1")
