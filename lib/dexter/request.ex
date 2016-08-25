@@ -33,7 +33,7 @@ defmodule Dexter.Request do
       |> handle_body
 
     # Put response in cache
-    Cache.put(query, response)
+    Cache.put(full_query, response)
 
     response
   end
