@@ -4,7 +4,7 @@ defmodule Dexter.Mixfile do
   def project do
     [
       app: :dexter,
-     version: "0.0.0",
+     version: "1.0.0",
      elixir: "~> 1.3",
      description: description,
      package: package,
