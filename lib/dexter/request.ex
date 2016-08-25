@@ -25,10 +25,26 @@ defmodule Dexter.Request do
   defp get(query) do
     full_query = make_url(query)
 
+    # If we're testing, make the timeout value super high for our convenience
+    # If not, we use 5000, which is the default in HTTPoison
+    test_timeout = case Mix.env do
+      :test -> 1000000
+      _ -> 5000
+    end
+
+    # Options for HTTPoison
+    options = [
+      # This is needed for Pokéapi because it redirects every request
+      follow_redirect: true,
+      # Timeouts for connection and request
+      recv_timeout: test_timeout,
+      timeout: test_timeout
+    ]
+
     response =
       full_query
       # Make the request
-      |> HTTPoison.get([], [follow_redirect: true, recv_timeout: 1000000, timeout: 1000000])
+      |> HTTPoison.get([], options)
       |> handle_response
       |> handle_body
 
@@ -49,6 +65,8 @@ defmodule Dexter.Request do
 
   defp handle_response({:ok, %{status_code: 200, body: body}}), do: {:ok, Parser.parse!(body)}
   defp handle_response({:ok, %{status_code: 404}}), do: {:error, "Not found"}
+  defp handle_response({:error, %HTTPoison.Error{id: _id, reason: :timeout}}), do: {:error, :timeout}
+  defp handle_response({:error, %HTTPoison.Error{id: _id, reason: :connect_timeout}}), do: {:error, :timeout}
 
   defp handle_body({:ok, body}), do: {:ok, body}
   defp handle_body({:error, message}), do: {:error, message}
